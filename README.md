@@ -19,7 +19,7 @@ PromptAlloy is an AI-powered project blueprint generator. Describe what you want
 
 ### 1. Clone & install
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/O-K1ng0/PromptAlloy.git
 cd PromptAlloy
 pip install -r requirements.txt
 ```
