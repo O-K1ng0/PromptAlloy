@@ -1,0 +1,40 @@
+Copyright (c) 2026 PromptAlloy. All Rights Reserved.
+
+SOURCE-AVAILABLE LICENSE — PERSONAL USE ONLY
+
+This software and its associated documentation files (the "Software") are the
+exclusive property of the copyright holder. By cloning, downloading, or using
+this repository, you agree to the following terms:
+
+1. PERMISSION TO USE
+   You may clone, download, and run the Software on your own machine for
+   personal, non-commercial use. You must provide your own API keys and
+   configuration as described in the documentation.
+
+2. NO MODIFICATION
+   You may not modify, adapt, or create derivative works based on the
+   Software. Use it as provided.
+
+3. NO REDISTRIBUTION
+   You may not distribute, republish, sublicense, sell, or host the Software
+   publicly. Do not re-upload or mirror this repository.
+
+4. NO COMMERCIAL USE
+   You may not use the Software for any commercial purpose, including
+   selling products or services that incorporate it, or offering it as a
+   hosted service.
+
+5. ATTRIBUTION
+   If you reference this project, provide clear attribution to the original
+   repository and copyright holder.
+
+6. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+   OR IMPLIED. USE AT YOUR OWN RISK.
+
+7. TERMINATION
+   Violation of these terms automatically terminates your right to use the
+   Software.
+
+For questions or permission requests, contact the copyright holder through
+the repository's issue tracker.

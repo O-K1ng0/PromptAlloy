@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PromptAlloy – Project Blueprint Generator</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- Animated background -->
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+
+  <div class="app-wrapper">
+
+    <!-- ── Header ─────────────────────────────────────────── -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <img src="/static/logo.svg" alt="PromptAlloy" class="brand-logo" />
+          <span class="brand-name">PromptAlloy</span>
+        </div>
+        <p class="brand-tagline">Describe → Clarify → Blueprint</p>
+        <button class="btn btn--ghost header-history-link" id="historyBtn" type="button">History</button>
+      </div>
+    </header>
+
+    <!-- ── Wizard Nav ──────────────────────────────────────── -->
+    <nav class="wizard-nav" aria-label="Steps">
+      <div class="wiz-step wiz-step--active" id="wizNav1">
+        <div class="wiz-bubble">1</div>
+        <span class="wiz-label">Describe</span>
+      </div>
+      <div class="wiz-line" id="wizLine1"></div>
+      <div class="wiz-step" id="wizNav2">
+        <div class="wiz-bubble">2</div>
+        <span class="wiz-label">Clarify</span>
+      </div>
+      <div class="wiz-line" id="wizLine2"></div>
+      <div class="wiz-step" id="wizNav3">
+        <div class="wiz-bubble">3</div>
+        <span class="wiz-label">Your Prompt</span>
+      </div>
+    </nav>
+
+    <!-- ── Main ───────────────────────────────────────────── -->
+    <main class="main">
+
+      <!-- ═══ STEP 1: Describe ═══════════════════════════════ -->
+      <section class="step-panel" id="stepPanel1">
+        <div class="panel">
+          <div class="panel__head">
+            <h2 class="panel__title">Describe Your Project</h2>
+            <span class="char-counter" id="charCounter">0 / 2000</span>
+          </div>
+          <p class="panel__hint">Type your project idea in plain English. We'll ask clarifying questions, then generate a complete blueprint to build it.</p>
+
+          <textarea
+            id="userInput"
+            class="textarea textarea--input"
+            placeholder="Examples:&#10;  A web app that converts images to ASCII art&#10;  A real-time chat application with file sharing&#10;  A Python tool to optimize database queries"
+            maxlength="2000"
+            spellcheck="false"
+          ></textarea>
+
+          <div class="controls">
+            <button id="analyzeBtn" class="btn btn--generate" type="button">
+              <span class="btn__label">Clarify Requirements →</span>
+              <span class="btn__spinner" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ STEP 2: Clarify ═════════════════════════════════ -->
+      <section class="step-panel" id="stepPanel2" hidden>
+        <div class="panel">
+          <div class="step2-head">
+            <div>
+              <h2 class="panel__title">Project Details</h2>
+              <p class="panel__hint">Answer these questions so we can generate a complete project blueprint. All optional — we'll make smart defaults.</p>
+            </div>
+            <span class="badge badge--task" id="taskBadge" hidden></span>
+          </div>
+
+          <div id="questionsContainer" class="questions-container"></div>
+
+          <div class="step2-actions">
+            <button id="backBtn" class="btn btn--ghost" type="button">← Back</button>
+            <button id="generateBtn" class="btn btn--generate" type="button">
+              <span class="btn__label">Generate Project Blueprint →</span>
+              <span class="btn__spinner" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ STEP 3: Your Prompt ══════════════════════════════ -->
+      <section class="step-panel" id="stepPanel3" hidden>
+        <div class="panel">
+          <div class="step3-head">
+            <div>
+              <h2 class="panel__title">Your Project Blueprint</h2>
+              <p class="panel__hint">Copy this into any LLM to instantly generate your complete project code and structure.</p>
+            </div>
+            <div class="output-actions">
+              <button class="btn btn--action" id="copyBtn" type="button" title="Copy to clipboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                <span>Copy</span>
+              </button>
+              <button class="btn btn--action" id="saveBtn" type="button" title="Download as .md file">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Save .md</span>
+              </button>
+              <button class="btn btn--ghost" id="startOverBtn" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.54"/></svg>
+                <span>Start Over</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Rendered markdown view -->
+          <div class="md-output" id="mdOutput"></div>
+
+          <!-- Hidden textarea holds raw text for clipboard -->
+          <textarea id="rawPrompt" class="sr-only" readonly aria-hidden="true"></textarea>
+
+          <!-- Stats -->
+          <div class="stats-bar" id="statsBar">
+            <div class="stat">
+              <span class="stat__label">Characters</span>
+              <span class="stat__value" id="statChars">—</span>
+            </div>
+            <div class="stat__divider"></div>
+            <div class="stat">
+              <span class="stat__label">Words</span>
+              <span class="stat__value" id="statWords">—</span>
+            </div>
+            <div class="stat__divider"></div>
+            <div class="stat">
+              <span class="stat__label">Est. Tokens</span>
+              <span class="stat__value" id="statTokens">—</span>
+            </div>
+          </div>
+
+          <!-- Explanation -->
+          <div class="explanation" id="explanation">
+            <h3 class="explanation__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              What's Included
+            </h3>
+            <ul class="explanation__list" id="explanationList"></ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div><!-- /.app-wrapper -->
+
+  <div class="history-overlay" id="historyOverlay" hidden>
+    <div class="history-popup" role="dialog" aria-modal="true" aria-labelledby="historyPopupTitle">
+      <div class="history-popup-head">
+        <h2 class="panel__title" id="historyPopupTitle">History</h2>
+        <div class="history-popup-actions">
+          <button id="historyClearBtn" class="btn btn--ghost" type="button">Clear</button>
+          <button id="historyCloseBtn" class="btn btn--ghost" type="button">Close</button>
+        </div>
+      </div>
+      <div id="historyPopupList" class="history-list"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <script src="/static/js/script.js"></script>
+</body>
+</html>

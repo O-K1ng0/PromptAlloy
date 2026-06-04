@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PromptAlloy Session</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+  </div>
+  <div class="app-wrapper">
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <img src="/static/logo.svg" alt="PromptAlloy" class="brand-logo" />
+          <span class="brand-name">PromptAlloy</span>
+        </div>
+        <p class="brand-tagline">Session Details</p>
+        <a class="btn btn--ghost header-history-link" href="javascript:void(0)" onclick="window.close()" rel="noopener">Close Tab</a>
+      </div>
+    </header>
+
+    <main class="main history-main">
+      <section class="panel">
+        <div class="panel__head">
+          <h2 class="panel__title">Saved Prompt Session</h2>
+        </div>
+        <div class="session-actions">
+          <button id="copyBtn" class="btn--action" title="Copy to clipboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+            </svg>
+            <span>Copy</span>
+          </button>
+          <div class="format-dropdown">
+            <button id="saveFormatBtn" class="btn--action" title="Save in different formats">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span>Save As...</span>
+            </button>
+            <div class="format-menu" id="formatMenu">
+              <button class="format-item" data-format="md">Markdown (.md)</button>
+              <button class="format-item" data-format="txt">Plain Text (.txt)</button>
+              <button class="format-item" data-format="json">JSON (.json)</button>
+            </div>
+          </div>
+          <button id="editBtn" class="btn--action" title="Edit and regenerate" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            <span>Edit</span>
+          </button>
+          <button id="closeBtn" class="btn--action" title="Close session" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Close</span>
+          </button>
+        </div>
+
+        <div id="sessionMeta" class="history-meta"></div>
+        <div class="md-output" id="sessionPrompt"></div>
+
+        <div class="explanation" id="sessionExplanationWrap">
+          <h3 class="explanation__title">What's Included</h3>
+          <ul class="explanation__list" id="sessionExplanation"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+  <script src="/static/js/session.js"></script>
+</body>
+</html>
